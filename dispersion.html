@@ -53,7 +53,7 @@
         .data(data)
         .join("circle")
             .on("click", function(){
-                console.log("Click recibido");
+                alert("Click recibido");
             })
             .attr("cx", function (d) { return x(d.x); } )
             .attr("cy", function (d) { return y(d.y); } )
