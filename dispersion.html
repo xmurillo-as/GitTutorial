@@ -52,6 +52,9 @@
         .selectAll("dot")
         .data(data)
         .join("circle")
+            .on("click", function(){
+                console.log("Click recibido");
+            })
             .attr("cx", function (d) { return x(d.x); } )
             .attr("cy", function (d) { return y(d.y); } )
             .attr("r", 5)
