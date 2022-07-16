@@ -92,7 +92,16 @@
             .style("fill", d => colorScaleLinear(d.nota))
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
-        .on("mouseleave", mouseleave) 
+        .on("mouseleave", mouseleave)
+
+        // Animation
+        svg.selectAll("circle")
+        .transition()
+        .duration(800)
+        .attr("y", function(d) { return y(d.nota); })
+        .attr("height", function(d) { return height - y(d.nota); })
+        .delay(function(d,i){console.log(i) ; return(i*100)})
+
     })
 </script>
 </body>
