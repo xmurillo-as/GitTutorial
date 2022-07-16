@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title> D3.js Examen</title>
+</head>
+<body>
+<!-- Create a div where the graph will take place -->
+<script src="https://d3js.org/d3.v6.js"></script>
+<div id="my_dataviz"></div>
+<script>
+
+    // Establecemos las dimensiones y margenes del grafico
+    const margin = {top: 10, right: 30, bottom: 30, left: 60},
+            width = 900 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom;
+    
+    // Agregamos el objeto svg a la pagina
+    const svg = d3.select("#my_dataviz")
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left}, ${margin.top})`);
+    
+    //Cargamos los datos
+    d3.json("https://raw.githubusercontent.com/xmurillo-as/GitTutorial/master/notas.json").then( function(data) {
+        // Agregamos el eje X
+        const x = d3.scaleLinear()
+        .domain([0, 500])
+        .range([ 0, width ]);
+        svg.append("g")
+        .attr("transform", `translate(0, ${height})`)
+        .call(d3.axisBottom(x));
+    
+        // Agregamos el eje Y
+        const y = d3.scaleLinear()
+        .domain([0, 10])
+        .range([ height, 0]);
+        svg.append("g")
+        .call(d3.axisLeft(y));
+   
+        // Add color scale
+        var colors = ["#FF0000", "#00FF00"];
+        var colorScaleLinear = d3.scaleLinear()
+        .range(colors)
+        .domain([0, 10]);
+
+        // Add dots
+        svg.append('g')
+        .selectAll("dot")
+        .data(data)
+        .join("circle")
+            .on("click", function(){
+                alert("Click recibido");
+            })
+            .attr("cx", function (d) { return x(d.ranking); } )
+            .attr("cy", function (d) { return y(d.nota); } )
+            .attr("r", 5)
+            .style("fill", d => colorScaleLinear(d.nota))
+    
+    })
+</script>
+</body>
+</html>
