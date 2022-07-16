@@ -25,7 +25,7 @@
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
     
     //Cargamos los datos
-    d3.json("https://raw.githubusercontent.com/xmurillo-as/GitTutorial/master/notas.json").then( function(data) {
+    d3.json("https://raw.githubusercontent.com/xmurillo-as/GitTutorial/master/notas.json", function(data) {
         // Agregamos el eje X
         var x = d3.scaleLinear()
         .domain([0, 500])
