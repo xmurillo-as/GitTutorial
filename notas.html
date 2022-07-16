@@ -6,7 +6,7 @@
 </head>
 <body>
 <!-- Create a div where the graph will take place -->
-<script src="https://d3js.org/d3.v6.js"></script>
+<script src="https://d3js.org/d3.v4.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <div id="my_dataviz"></div>
 <script>
@@ -69,8 +69,8 @@
         var mousemove = function(d) {
             Tooltip
             .html("La posición de " + d.alumno + " dentro del ranking es: " + d.ranking)
-            .style("left", (d3.event.pageX) + "px")
-            .style("top", (d3.event.pageY - 28) + "px")
+            .style("left", (d3.mouse(this)[0]+70) + "px")
+            .style("top", (d3.mouse(this)[1]) + "px")
         }
         var mouseleave = function(d) {
             Tooltip
