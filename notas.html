@@ -31,6 +31,7 @@
         .domain([0, 500])
         .range([ 0, width ]);
         svg.append("g")
+        .attr("class", "myXaxis")
         .attr("transform", `translate(0, ${height})`)
         .call(d3.axisBottom(x));
     
@@ -80,7 +81,7 @@
             .style("opacity", 0.8)
         }
 
-        // Add dots
+        // Agregamos los circulos
         svg.append('g')
         .selectAll("dot")
         .data(data)
@@ -94,13 +95,20 @@
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
 
-        // Animation
+        // Animacion
+        x.domain([0, 500])
+        svg.select(".myXaxis")
+            .transition()
+            .duration(2000)
+            .attr("opacity", "1")
+            .call(d3.axisBottom(x));
+
         svg.selectAll("circle")
-        .transition()
-        .duration(800)
-        .attr("y", function(d) { return y(d.nota); })
-        .attr("height", function(d) { return height - y(d.nota); })
-        .delay(function(d,i){console.log(i) ; return(i*100)})
+            .transition()
+            .delay(function(d,i){return(i*3)})
+            .duration(2000)
+            .attr("cx", function (d) { return x(d.ranking); } )
+            .attr("cy", function (d) { return y(d.nota); } )
 
     })
 </script>
