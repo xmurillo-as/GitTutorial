@@ -33,7 +33,8 @@
         svg.append("g")
         .attr("class", "myXaxis")
         .attr("transform", `translate(0, ${height})`)
-        .call(d3.axisBottom(x));
+        .call(d3.axisBottom(x))
+        .attr("opacity", "0");
     
         // Agregamos el eje Y
         var y = d3.scaleLinear()
