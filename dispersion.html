@@ -28,7 +28,7 @@
     d3.csv("https://raw.githubusercontent.com/xmurillo-as/GitTutorial/master/dispersiondata.csv").then( function(data) {
         // Add X axis
         const x = d3.scaleLinear()
-        .domain([0, d3.max(data, function(d) { return d.x; })])
+        .domain([0, 200])
         .range([ 0, width ]);
         svg.append("g")
         .attr("transform", `translate(0, ${height})`)
@@ -36,17 +36,16 @@
     
         // Add Y axis
         const y = d3.scaleLinear()
-        .domain([0, d3.max(data, function(d) { return d.y; })])
+        .domain([0, 500])
         .range([ height, 0]);
         svg.append("g")
         .call(d3.axisLeft(y));
    
         // Add color scale
         var colors = ["#FFFFFF", "#FF0000"];
-        var colorScaleLinear = d3
-        .scaleLinear()
+        var colorScaleLinear = d3.scaleLinear()
         .range(colors)
-        .domain([0, d3.max(data, function(d) { return d.intensidad; })]);
+        .domain([0, 100]);
 
         // Add dots
         svg.append('g')
