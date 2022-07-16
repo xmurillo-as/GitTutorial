@@ -1,5 +1,5 @@
 [
-    { "alumno": "Xavier", "nota": 9.9, "ranking": 10 },
+    { "alumno": "Xavier", "nota": 9.5, "ranking": 10 },
     { "alumno": "Pedro", "nota": 6.7, "ranking": 150 },
     { "alumno": "Luis", "nota": 4.5, "ranking": 220 },
     { "alumno": "Juan", "nota": 8.8, "ranking": 180 },
