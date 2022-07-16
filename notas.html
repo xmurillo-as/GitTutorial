@@ -7,6 +7,7 @@
 <body>
 <!-- Create a div where the graph will take place -->
 <script src="https://d3js.org/d3.v6.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <div id="my_dataviz"></div>
 <script>
 
@@ -40,25 +41,57 @@
         svg.append("g")
         .call(d3.axisLeft(y));
    
-        // Add color scale
+        // Agregamos la escala de colores
         var colors = ["#FF0000", "#00FF00"];
         var colorScaleLinear = d3.scaleLinear()
         .range(colors)
         .domain([0, 10]);
+
+        // Creamos el tooltip
+        var Tooltip = d3.select("#my_dataviz")
+            .append("div")
+            .style("opacity", 0)
+            .attr("class", "tooltip")
+            .style("background-color", "white")
+            .style("border", "solid")
+            .style("border-width", "2px")
+            .style("border-radius", "5px")
+            .style("padding", "5px")
+
+        // Tres funciones que cambian el tooltip cuando el usuario pasa por encima, se mueve o abandona el circulo
+        var mouseover = function(d) {
+            Tooltip
+            .style("opacity", 1)
+            d3.select(this)
+            .style("stroke", "black")
+            .style("opacity", 1)
+        }
+        var mousemove = function(d) {
+            Tooltip
+            .html("La posición de " + d.alumno + " dentro del ranking es: " + d.ranking)
+            .style("left", (d3.mouse(this)[0]+70) + "px")
+            .style("top", (d3.mouse(this)[1]) + "px")
+        }
+        var mouseleave = function(d) {
+            Tooltip
+            .style("opacity", 0)
+            d3.select(this)
+            .style("stroke", "none")
+            .style("opacity", 0.8)
+        }
 
         // Add dots
         svg.append('g')
         .selectAll("dot")
         .data(data)
         .join("circle")
-            .on("click", function(){
-                alert("Click recibido");
-            })
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseleave", mouseleave)
             .attr("cx", function (d) { return x(d.ranking); } )
             .attr("cy", function (d) { return y(d.nota); } )
             .attr("r", function (d) { return d.nota * 1.5; } )
-            .style("fill", d => colorScaleLinear(d.nota))
-    
+            .style("fill", d => colorScaleLinear(d.nota))    
     })
 </script>
 </body>
